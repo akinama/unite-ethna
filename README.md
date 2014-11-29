@@ -17,4 +17,5 @@ You can use the following commands in ethna project directory.
 :Unite ethna/action
 :Unite ethna/template
 :Unite ethna/config
+:Unite ethna/master
 ```
