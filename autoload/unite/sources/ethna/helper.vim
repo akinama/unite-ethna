@@ -2,20 +2,21 @@
 " gather file candidates
 "
 function! unite#sources#ethna#helper#gather_candidates_file(path)
-
-  if isdirectory(a:path)
-    let files = []
-    for f in split(globpath(a:path, '**/*.*') , '\n')
-      if isdirectory(f) | continue | endif
-      call add(files , 
-            \ {'name' : substitute(f , a:path. "/" , "" , "") , 'path' : f })
-    endfor
-  else
-    let files = [{
-          \ "name" : fnamemodify(a:path, ":t") ,
-          \ "path" : a:path
-          \ }]
-  endif
+  for d in split(globpath(unite#sources#ethna#helper#ethna_root(), a:path), '\n')
+    if isdirectory(d)
+      let files = []
+      for f in split(globpath(d, '**/*.*') , '\n')
+        if isdirectory(f) | continue | endif
+        call add(files , 
+              \ {'name' : substitute(f , d. "/" , "" , "") , 'path' : f })
+      endfor
+    else
+      let files = [{
+            \ "name" : fnamemodify(d, ":t") ,
+            \ "path" : d
+            \ }]
+    endif
+  endfor
 
   return map(files , '{
           \ "word" : v:val.name ,
