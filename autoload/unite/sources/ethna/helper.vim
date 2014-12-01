@@ -2,9 +2,9 @@
 " gather file candidates
 "
 function! unite#sources#ethna#helper#gather_candidates_file(path)
+  let files = []
   for d in split(globpath(unite#sources#ethna#helper#ethna_root(), a:path), '\n')
     if isdirectory(d)
-      let files = []
       for f in split(globpath(d, '**/*.*') , '\n')
         if isdirectory(f) | continue | endif
         call add(files , 
